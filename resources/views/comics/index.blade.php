@@ -25,7 +25,7 @@
                   <td>{{ $comic->series }}</td>
                   <td>{{ $comic->price }} $</td>
                   <td>
-                    <a href="{{ route('comics.show', $comic->id) }}" class="btn">SHOW</a>
+                    <a href="{{ route('comics.show', $comic) }}" class="btn">SHOW</a>
                   </td>
                   <td>EDIT</td>
                   <td>DELETE</td>
@@ -34,6 +34,10 @@
 
       </tbody>
     </table>
+
+    <div>
+      {{ $comics->links() }}
+    </div>
   </div>
 
 @endsection

@@ -6,6 +6,9 @@
 
 
       <a href="{{ route('comics.index') }}">fumetti</a>
+
+
+      <a href="{{ route('comics.create') }}">Nuovo fumetto</a>
     </div>  
   </nav>
 
