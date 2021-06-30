@@ -3,7 +3,13 @@
 @section('content')
 
   <h1>i fumetti</h1>
-
+  <!-- verifico la presenza della var di sessione dopo la destroy -->
+  @if (session('deleted'))
+    <div class="alert alert-success" role="alert">
+      <strong>{{ session('deleted') }}</strong>
+      eliminato correttamente
+    </div>
+  @endif
   <div class="container">
     <table class="table">
       <thead>
@@ -25,10 +31,18 @@
                   <td>{{ $comic->series }}</td>
                   <td>{{ $comic->price }} $</td>
                   <td>
-                    <a href="{{ route('comics.show', $comic) }}" class="btn">SHOW</a>
+                    <a href="{{ route('comics.show', $comic) }}" class="btn btn-success">SHOW</a>
                   </td>
-                  <td>EDIT</td>
-                  <td>DELETE</td>
+                  <td>
+                  <a href="{{ route('comics.edit', $comic) }}" class="btn btn-success">EDIT</a>
+                  </td>
+                  <td>
+                    <form action="{{ route('comics.destroy', $comic) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">DELETE</button>
+                    </form>
+                  </td>
               </tr>
           @endforeach
 

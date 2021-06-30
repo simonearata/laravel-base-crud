@@ -69,7 +69,13 @@ class ComicController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comic = Comic::find($id);
+
+        if($comic){
+
+            return view('comics.edit', compact('comic'));
+        }
+        abort(404);
     }
 
     /**
@@ -80,8 +86,15 @@ class ComicController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        // leggo i dati provenienti dal form
+        $data = $request->all();
+        // seleziona la riga della tabella da modificare
+        $comic = Comic::find($id);
+
+        $comic->update($data); // fanno riferimento i dati fillabili
+
+        return redirect()->route('comics.show', $comic);
     }
 
     /**
@@ -90,8 +103,9 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comic $comic)
     {
-        //
+        $comic->delete();
+        return redirect()->route('comics.index')->with('deleted', $comic->title);
     }
 }
